@@ -1,0 +1,200 @@
+# HELP omni_exporter_cluster_available Whether the cluster is available.
+# TYPE omni_exporter_cluster_available gauge
+omni_exporter_cluster_available{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_control_plane_ready Whether the control plane of the cluster is ready.
+# TYPE omni_exporter_cluster_control_plane_ready gauge
+omni_exporter_cluster_control_plane_ready{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_etcd_backup_enabled Whether etcd backups are enabled for the cluster.
+# TYPE omni_exporter_cluster_etcd_backup_enabled gauge
+omni_exporter_cluster_etcd_backup_enabled{cluster_id="backup-disabled"} 0
+omni_exporter_cluster_etcd_backup_enabled{cluster_id="backup-pending"} 1
+omni_exporter_cluster_etcd_backup_enabled{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_etcd_backup_last_attempt_timestamp_seconds Unix timestamp of the last etcd backup attempt of the cluster.
+# TYPE omni_exporter_cluster_etcd_backup_last_attempt_timestamp_seconds gauge
+omni_exporter_cluster_etcd_backup_last_attempt_timestamp_seconds{cluster_id="talos-default"} 1.75150006e+09
+# HELP omni_exporter_cluster_etcd_backup_last_success_timestamp_seconds Unix timestamp of the last successful etcd backup of the cluster.
+# TYPE omni_exporter_cluster_etcd_backup_last_success_timestamp_seconds gauge
+omni_exporter_cluster_etcd_backup_last_success_timestamp_seconds{cluster_id="talos-default"} 1.7515e+09
+# HELP omni_exporter_cluster_etcd_backup_status Whether the last etcd backup of the cluster is in the given status.
+# TYPE omni_exporter_cluster_etcd_backup_status gauge
+omni_exporter_cluster_etcd_backup_status{cluster_id="talos-default",status="error"} 0
+omni_exporter_cluster_etcd_backup_status{cluster_id="talos-default",status="ok"} 1
+omni_exporter_cluster_etcd_backup_status{cluster_id="talos-default",status="running"} 0
+omni_exporter_cluster_etcd_backup_status{cluster_id="talos-default",status="unknown"} 0
+# HELP omni_exporter_cluster_info Cluster information.
+# TYPE omni_exporter_cluster_info gauge
+omni_exporter_cluster_info{cluster_id="talos-default",kubernetes_version="1.34.1",talos_version="1.11.2"} 1
+# HELP omni_exporter_cluster_kubernetes_api_ready Whether the Kubernetes API of the cluster is ready.
+# TYPE omni_exporter_cluster_kubernetes_api_ready gauge
+omni_exporter_cluster_kubernetes_api_ready{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_kubernetes_upgrade_phase Whether the Kubernetes upgrade of the cluster is in the given phase.
+# TYPE omni_exporter_cluster_kubernetes_upgrade_phase gauge
+omni_exporter_cluster_kubernetes_upgrade_phase{cluster_id="talos-default",phase="done"} 0
+omni_exporter_cluster_kubernetes_upgrade_phase{cluster_id="talos-default",phase="failed"} 0
+omni_exporter_cluster_kubernetes_upgrade_phase{cluster_id="talos-default",phase="reverting"} 0
+omni_exporter_cluster_kubernetes_upgrade_phase{cluster_id="talos-default",phase="unknown"} 0
+omni_exporter_cluster_kubernetes_upgrade_phase{cluster_id="talos-default",phase="upgrading"} 1
+# HELP omni_exporter_cluster_machine_ready Whether the cluster machine is ready.
+# TYPE omni_exporter_cluster_machine_ready gauge
+omni_exporter_cluster_machine_ready{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_cluster_machine_stage Whether the cluster machine is in the given stage.
+# TYPE omni_exporter_cluster_machine_stage gauge
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="before_destroy"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="booting"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="configuring"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="destroying"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="installing"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="powered_off"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="powering_on"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="rebooting"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="running"} 1
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="shutting_down"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="unknown"} 0
+omni_exporter_cluster_machine_stage{cluster_id="talos-default",machine_id="machine-1",machine_set_id="talos-default-control-planes",stage="upgrading"} 0
+# HELP omni_exporter_cluster_machines Number of machines in the cluster.
+# TYPE omni_exporter_cluster_machines gauge
+omni_exporter_cluster_machines{cluster_id="talos-default"} 2
+# HELP omni_exporter_cluster_machines_connected Number of machines in the cluster connected to Omni.
+# TYPE omni_exporter_cluster_machines_connected gauge
+omni_exporter_cluster_machines_connected{cluster_id="talos-default"} 2
+# HELP omni_exporter_cluster_machines_healthy Number of healthy machines in the cluster.
+# TYPE omni_exporter_cluster_machines_healthy gauge
+omni_exporter_cluster_machines_healthy{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_machines_requested Number of machines requested for the cluster. It can differ from the number of machines when machine classes are used.
+# TYPE omni_exporter_cluster_machines_requested gauge
+omni_exporter_cluster_machines_requested{cluster_id="talos-default"} 3
+# HELP omni_exporter_cluster_phase Whether the cluster is in the given phase.
+# TYPE omni_exporter_cluster_phase gauge
+omni_exporter_cluster_phase{cluster_id="talos-default",phase="destroying"} 0
+omni_exporter_cluster_phase{cluster_id="talos-default",phase="running"} 1
+omni_exporter_cluster_phase{cluster_id="talos-default",phase="scaling_down"} 0
+omni_exporter_cluster_phase{cluster_id="talos-default",phase="scaling_up"} 0
+omni_exporter_cluster_phase{cluster_id="talos-default",phase="unknown"} 0
+# HELP omni_exporter_cluster_ready Whether the cluster is ready.
+# TYPE omni_exporter_cluster_ready gauge
+omni_exporter_cluster_ready{cluster_id="talos-default"} 1
+# HELP omni_exporter_cluster_talos_upgrade_phase Whether the Talos upgrade of the cluster is in the given phase.
+# TYPE omni_exporter_cluster_talos_upgrade_phase gauge
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="done"} 1
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="failed"} 0
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="reverting"} 0
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="unknown"} 0
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="updating_machine_schematics"} 0
+omni_exporter_cluster_talos_upgrade_phase{cluster_id="talos-default",phase="upgrading"} 0
+# HELP omni_exporter_collector_cached_resources Number of resources in the in-memory view of a single collector.
+# TYPE omni_exporter_collector_cached_resources gauge
+omni_exporter_collector_cached_resources{collector="cluster_machines"} 1
+omni_exporter_collector_cached_resources{collector="clusters"} 1
+omni_exporter_collector_cached_resources{collector="etcd_backup_configs"} 3
+omni_exporter_collector_cached_resources{collector="etcd_backup_store"} 1
+omni_exporter_collector_cached_resources{collector="etcd_backups"} 1
+omni_exporter_collector_cached_resources{collector="kubernetes_upgrades"} 1
+omni_exporter_collector_cached_resources{collector="machine_sets"} 1
+omni_exporter_collector_cached_resources{collector="machines"} 2
+omni_exporter_collector_cached_resources{collector="talos_upgrades"} 1
+# HELP omni_exporter_collector_events_total Number of watch events applied to the in-memory view of a single collector, excluding the initial sync.
+# TYPE omni_exporter_collector_events_total counter
+omni_exporter_collector_events_total{collector="cluster_machines",event="created"} 0
+omni_exporter_collector_events_total{collector="cluster_machines",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="cluster_machines",event="updated"} 0
+omni_exporter_collector_events_total{collector="clusters",event="created"} 0
+omni_exporter_collector_events_total{collector="clusters",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="clusters",event="updated"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_configs",event="created"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_configs",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_configs",event="updated"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_store",event="created"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_store",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="etcd_backup_store",event="updated"} 0
+omni_exporter_collector_events_total{collector="etcd_backups",event="created"} 0
+omni_exporter_collector_events_total{collector="etcd_backups",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="etcd_backups",event="updated"} 0
+omni_exporter_collector_events_total{collector="kubernetes_upgrades",event="created"} 0
+omni_exporter_collector_events_total{collector="kubernetes_upgrades",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="kubernetes_upgrades",event="updated"} 0
+omni_exporter_collector_events_total{collector="machine_sets",event="created"} 0
+omni_exporter_collector_events_total{collector="machine_sets",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="machine_sets",event="updated"} 0
+omni_exporter_collector_events_total{collector="machines",event="created"} 0
+omni_exporter_collector_events_total{collector="machines",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="machines",event="updated"} 0
+omni_exporter_collector_events_total{collector="talos_upgrades",event="created"} 0
+omni_exporter_collector_events_total{collector="talos_upgrades",event="destroyed"} 0
+omni_exporter_collector_events_total{collector="talos_upgrades",event="updated"} 0
+# HELP omni_exporter_collector_success Whether the object metrics of a single collector are exposed: Omni is reachable, the initial sync of the in-memory view has completed and the rendering succeeded.
+# TYPE omni_exporter_collector_success gauge
+omni_exporter_collector_success{collector="cluster_machines"} 1
+omni_exporter_collector_success{collector="clusters"} 1
+omni_exporter_collector_success{collector="etcd_backup_configs"} 1
+omni_exporter_collector_success{collector="etcd_backup_store"} 1
+omni_exporter_collector_success{collector="etcd_backups"} 1
+omni_exporter_collector_success{collector="kubernetes_upgrades"} 1
+omni_exporter_collector_success{collector="machine_sets"} 1
+omni_exporter_collector_success{collector="machines"} 1
+omni_exporter_collector_success{collector="talos_upgrades"} 1
+# HELP omni_exporter_collector_watch_attempts_total Number of watch establishment attempts of a single collector, counted before the attempt is made. Each one that succeeds resynchronizes the in-memory view from scratch. A value above one means a previous attempt had failed. Stream interruptions the client resumes from a bookmark are not counted here.
+# TYPE omni_exporter_collector_watch_attempts_total counter
+omni_exporter_collector_watch_attempts_total{collector="cluster_machines"} 1
+omni_exporter_collector_watch_attempts_total{collector="clusters"} 1
+omni_exporter_collector_watch_attempts_total{collector="etcd_backup_configs"} 1
+omni_exporter_collector_watch_attempts_total{collector="etcd_backup_store"} 1
+omni_exporter_collector_watch_attempts_total{collector="etcd_backups"} 1
+omni_exporter_collector_watch_attempts_total{collector="kubernetes_upgrades"} 1
+omni_exporter_collector_watch_attempts_total{collector="machine_sets"} 1
+omni_exporter_collector_watch_attempts_total{collector="machines"} 1
+omni_exporter_collector_watch_attempts_total{collector="talos_upgrades"} 1
+# HELP omni_exporter_etcd_backup_store_info Etcd backup store information. The configuration_name label reflects the configured store type, e.g. s3 or disabled.
+# TYPE omni_exporter_etcd_backup_store_info gauge
+omni_exporter_etcd_backup_store_info{configuration_name="s3"} 1
+# HELP omni_exporter_etcd_backup_store_ready Whether the etcd backup store configuration of the instance has no errors. It is 1 also when backups are disabled altogether.
+# TYPE omni_exporter_etcd_backup_store_ready gauge
+omni_exporter_etcd_backup_store_ready 1
+# HELP omni_exporter_machine_connected Whether the machine is connected to Omni.
+# TYPE omni_exporter_machine_connected gauge
+omni_exporter_machine_connected{machine_id="machine-1"} 1
+omni_exporter_machine_connected{machine_id="machine-2"} 0
+# HELP omni_exporter_machine_info Machine information. The cluster_id label is empty for machines not allocated to a cluster.
+# TYPE omni_exporter_machine_info gauge
+omni_exporter_machine_info{arch="",cluster_id="",hostname="platform-hostname",machine_id="machine-2",management_address="",platform="aws",role="none",talos_version=""} 1
+omni_exporter_machine_info{arch="amd64",cluster_id="talos-default",hostname="node-1",machine_id="machine-1",management_address="10.5.0.2",platform="metal",role="control_plane",talos_version="1.11.2"} 1
+# HELP omni_exporter_machine_power_state Whether the machine is in the given power state.
+# TYPE omni_exporter_machine_power_state gauge
+omni_exporter_machine_power_state{machine_id="machine-1",state="off"} 0
+omni_exporter_machine_power_state{machine_id="machine-1",state="on"} 1
+omni_exporter_machine_power_state{machine_id="machine-1",state="unknown"} 0
+omni_exporter_machine_power_state{machine_id="machine-1",state="unsupported"} 0
+omni_exporter_machine_power_state{machine_id="machine-2",state="off"} 0
+omni_exporter_machine_power_state{machine_id="machine-2",state="on"} 0
+omni_exporter_machine_power_state{machine_id="machine-2",state="unknown"} 1
+omni_exporter_machine_power_state{machine_id="machine-2",state="unsupported"} 0
+# HELP omni_exporter_machine_set_machines Number of machines in the machine set.
+# TYPE omni_exporter_machine_set_machines gauge
+omni_exporter_machine_set_machines{cluster_id="talos-default",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_machine_set_machines_connected Number of machines in the machine set connected to Omni.
+# TYPE omni_exporter_machine_set_machines_connected gauge
+omni_exporter_machine_set_machines_connected{cluster_id="talos-default",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_machine_set_machines_healthy Number of healthy machines in the machine set.
+# TYPE omni_exporter_machine_set_machines_healthy gauge
+omni_exporter_machine_set_machines_healthy{cluster_id="talos-default",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_machine_set_machines_requested Number of machines requested for the machine set. It can differ from the number of machines when machine classes are used.
+# TYPE omni_exporter_machine_set_machines_requested gauge
+omni_exporter_machine_set_machines_requested{cluster_id="talos-default",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_machine_set_phase Whether the machine set is in the given phase.
+# TYPE omni_exporter_machine_set_phase gauge
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="destroying"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="failed"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="reconfiguring"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="running"} 1
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="scaling_down"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="scaling_up"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="unknown"} 0
+omni_exporter_machine_set_phase{cluster_id="talos-default",machine_set_id="talos-default-control-planes",phase="upgrading"} 0
+# HELP omni_exporter_machine_set_ready Whether the machine set is ready.
+# TYPE omni_exporter_machine_set_ready gauge
+omni_exporter_machine_set_ready{cluster_id="talos-default",machine_set_id="talos-default-control-planes"} 1
+# HELP omni_exporter_reachable Whether Omni answered the reachability probe of the current scrape.
+# TYPE omni_exporter_reachable gauge
+omni_exporter_reachable 1
+# HELP omni_exporter_up Whether Omni is reachable and every collector has completed its initial sync and renders successfully.
+# TYPE omni_exporter_up gauge
+omni_exporter_up 1
