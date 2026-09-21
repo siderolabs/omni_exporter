@@ -1,0 +1,14 @@
+# grafana/dashboard-linter configuration.
+exclusions:
+  template-job-rule:
+    reason: the rule requires an allValue of .+, which would make the process and Go runtime panels match every scraped job. The built-in all-option is used instead, it only contains the exporter jobs.
+  template-instance-rule:
+    reason: the instance label is the address of a single exporter pod and changes on every restart. The job label selects the exporter instead.
+  target-instance-rule:
+    reason: the instance label is the address of a single exporter pod and changes on every restart. The job label selects the exporter instead.
+  panel-title-description-rule:
+    reason: the panel titles are clear on their own, and the metrics are documented in the exporter README.
+  panel-units-rule:
+    reason: most panels show enum states, counts, tables or info metrics, where a unit is not meaningful.
+  uneditable-dashboard:
+    reason: the dashboard is developed by editing it in the Grafana of the compose stack and exporting it, so it stays editable.

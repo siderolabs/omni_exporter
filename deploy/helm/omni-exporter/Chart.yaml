@@ -1,0 +1,26 @@
+apiVersion: v2
+name: omni-exporter
+description: A Helm chart to deploy the Prometheus exporter for Sidero Omni
+type: application
+
+# version and appVersion are set by `make generate` (kres) at release time,
+# so that the chart version follows the exporter version.
+version: 0.1.0
+appVersion: "v0.1.0"
+
+home: https://github.com/siderolabs/omni_exporter
+sources:
+  - https://github.com/siderolabs/omni_exporter
+
+maintainers:
+  - name: Sidero Labs
+    url: https://www.siderolabs.com
+    email: info@siderolabs.com
+
+keywords:
+  - prometheus
+  - exporter
+  - omni
+  - sidero
+  - talos
+  - metrics

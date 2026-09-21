@@ -1,0 +1,54 @@
+{{- if .Values.prometheusRule.enabled }}
+{{- $job := include "omni-exporter.fullname" . }}
+{{- $selector := printf "job=%q,namespace=%q" $job .Release.Namespace }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: {{ include "omni-exporter.fullname" . }}
+  namespace: {{ .Values.prometheusRule.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "omni-exporter.labels" . | nindent 4 }}
+    {{- with .Values.prometheusRule.labels }}
+    {{- toYaml . | nindent 4 }}
+    {{- end }}
+  {{- with .Values.prometheusRule.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  groups:
+    - name: omni-exporter
+      rules:
+        - alert: OmniUnreachable
+          expr: omni_exporter_reachable{ {{- $selector -}} } == 0
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: Omni is unreachable from the {{ $job }} exporter.
+            description: Omni is down, the exporter cannot reach it, or its service account key is no longer valid. The object metrics are not exposed until Omni is reachable again.
+        - alert: OmniExporterNotSynced
+          expr: omni_exporter_up{ {{- $selector -}} } == 0 unless on (job, namespace, instance) omni_exporter_reachable{ {{- $selector -}} } == 0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: The {{ $job }} exporter has not completed its initial sync.
+            description: Omni is reachable, but at least one collector has not completed its initial sync, so its object metrics are not exposed. Check omni_exporter_collector_success and the exporter logs.
+        - alert: OmniExporterAbsent
+          expr: absent(omni_exporter_up{ {{- $selector -}} })
+          for: 5m
+          labels:
+            severity: warning
+          annotations:
+            summary: The {{ $job }} exporter is not scraped.
+            description: Prometheus has no omni_exporter_up series of the exporter, so none of the other Omni alerts can fire.
+        - alert: OmniExporterWatchResyncing
+          expr: rate(omni_exporter_collector_watch_attempts_total{ {{- $selector -}} }[10m]) > 0 unless on (job, namespace, instance) omni_exporter_reachable{ {{- $selector -}} } == 0
+          for: 15m
+          labels:
+            severity: warning
+          annotations:
+            summary: A collector of the {{ $job }} exporter keeps resynchronizing.
+            description: The watch of a resource type keeps failing, so its metrics are stale between the resynchronizations.
+{{- end }}

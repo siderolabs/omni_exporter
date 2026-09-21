@@ -1,0 +1,9 @@
+omni-exporter {{ .Chart.AppVersion }} is deployed as {{ include "omni-exporter.fullname" . }}.
+
+The metrics are served on:
+  http://{{ include "omni-exporter.fullname" . }}.{{ .Release.Namespace }}.svc:{{ .Values.service.port }}/metrics
+{{- if .Values.omni.serviceAccountKey.value }}
+
+The service account key is set inline and stored in a Secret of this release.
+Prefer omni.serviceAccountKey.existingSecret, so that the key is not kept in the values.
+{{- end }}

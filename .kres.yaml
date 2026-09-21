@@ -22,3 +22,13 @@ spec:
 kind: service.CodeCov
 spec:
   enabled: false
+---
+kind: auto.Helm
+spec:
+  enabled: true
+  chartDir: deploy/helm/omni-exporter
+  schemaDisabled: true
+  chartVersionMajor: 0
+  template:
+    valuesFiles:
+      - hack/test/helm/template-values.yaml

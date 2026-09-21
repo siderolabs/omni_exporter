@@ -1,0 +1,20 @@
+suite: dashboard
+templates:
+  - templates/dashboard.yaml
+set:
+  omni.endpoint: https://example.omni.siderolabs.io
+  omni.serviceAccountKey.value: dummy
+tests:
+  - it: is not rendered by default
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: ships a sidecar-labelled ConfigMap when enabled
+    set:
+      dashboards.enabled: true
+    asserts:
+      - isKind:
+          of: ConfigMap
+      - equal:
+          path: metadata.labels["grafana_dashboard"]
+          value: "1"

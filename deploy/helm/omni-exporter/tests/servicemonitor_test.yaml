@@ -1,0 +1,20 @@
+suite: servicemonitor
+templates:
+  - templates/servicemonitor.yaml
+set:
+  omni.endpoint: https://example.omni.siderolabs.io
+  omni.serviceAccountKey.value: dummy
+tests:
+  - it: is not rendered by default
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: scrapes the metrics port when enabled
+    set:
+      serviceMonitor.enabled: true
+    asserts:
+      - isKind:
+          of: ServiceMonitor
+      - equal:
+          path: spec.endpoints[0].port
+          value: metrics

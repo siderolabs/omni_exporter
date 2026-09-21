@@ -1,0 +1,11 @@
+# Values for the helm template check in CI, enabling every optional resource.
+omni:
+  endpoint: https://example.omni.siderolabs.io
+  serviceAccountKey:
+    value: dummy-service-account-key
+serviceMonitor:
+  enabled: true
+dashboards:
+  enabled: true
+prometheusRule:
+  enabled: true

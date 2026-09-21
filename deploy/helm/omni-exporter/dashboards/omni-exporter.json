@@ -34,7 +34,7 @@
       "title": "Exporter",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -46,9 +46,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_up",
+          "expr": "max without (instance, pod) (omni_exporter_up{job=~\"$job\"})",
           "refId": "A"
         }
       ],
@@ -103,7 +103,7 @@
       "title": "Clusters",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 3,
@@ -115,9 +115,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "count(omni_exporter_cluster_ready) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "count(omni_exporter_cluster_ready{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A"
         }
       ],
@@ -155,7 +155,7 @@
       "title": "Clusters Ready",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 8,
@@ -167,9 +167,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_cluster_ready) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_cluster_ready{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A"
         }
       ],
@@ -207,7 +207,7 @@
       "title": "Machines",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -219,9 +219,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "count(omni_exporter_machine_connected) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "count(omni_exporter_machine_connected{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A"
         }
       ],
@@ -259,7 +259,7 @@
       "title": "Machines Connected",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 16,
@@ -271,9 +271,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_machine_connected) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_machine_connected{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A"
         }
       ],
@@ -311,7 +311,7 @@
       "title": "Backup Store",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 20,
@@ -323,9 +323,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_etcd_backup_store_info == 1",
+          "expr": "max without (instance, pod) (omni_exporter_etcd_backup_store_info{job=~\"$job\"}) == 1",
           "refId": "A",
           "legendFormat": "{{configuration_name}}"
         }
@@ -377,7 +377,7 @@
       "title": "Cluster Ready",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -389,9 +389,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_ready",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_ready{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{cluster_id}}"
         }
@@ -446,7 +446,7 @@
       "title": "Clusters by Phase",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -458,9 +458,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (phase) (omni_exporter_cluster_phase)",
+          "expr": "sum by (phase) (omni_exporter_cluster_phase{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{phase}}"
         }
@@ -497,7 +497,7 @@
       "title": "Cluster Machines",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -509,36 +509,36 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_machines",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_machines{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{cluster_id}} total"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_machines_healthy",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_machines_healthy{job=~\"$job\"})",
           "refId": "B",
           "legendFormat": "{{cluster_id}} healthy"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_machines_connected",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_machines_connected{job=~\"$job\"})",
           "refId": "C",
           "legendFormat": "{{cluster_id}} connected"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_machines_requested",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_machines_requested{job=~\"$job\"})",
           "refId": "D",
           "legendFormat": "{{cluster_id}} requested"
         }
@@ -575,7 +575,7 @@
       "title": "Cluster Health Signals",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -587,27 +587,27 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_available",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_available{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{cluster_id}} available"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_kubernetes_api_ready",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_kubernetes_api_ready{job=~\"$job\"})",
           "refId": "B",
           "legendFormat": "{{cluster_id}} kubernetes api"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_control_plane_ready",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_control_plane_ready{job=~\"$job\"})",
           "refId": "C",
           "legendFormat": "{{cluster_id}} control plane"
         }
@@ -646,7 +646,7 @@
       "title": "Cluster Info",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -658,9 +658,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_info",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_info{job=~\"$job\"})",
           "refId": "A",
           "instant": true,
           "format": "table"
@@ -696,7 +696,7 @@
       "title": "Upgrades in Progress",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -708,18 +708,18 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_cluster_talos_upgrade_phase{phase=~\"upgrading|updating_machine_schematics|reverting\"}) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_cluster_talos_upgrade_phase{job=~\"$job\",phase=~\"upgrading|updating_machine_schematics|reverting\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A",
           "legendFormat": "talos"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_cluster_kubernetes_upgrade_phase{phase=~\"upgrading|reverting\"}) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_cluster_kubernetes_upgrade_phase{job=~\"$job\",phase=~\"upgrading|reverting\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "B",
           "legendFormat": "kubernetes"
         }
@@ -769,7 +769,7 @@
       "title": "Machine Connectivity",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -781,18 +781,18 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "count(omni_exporter_machine_connected) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "count(omni_exporter_machine_connected{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A",
           "legendFormat": "total"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_machine_connected) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_machine_connected{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "B",
           "legendFormat": "connected"
         }
@@ -829,7 +829,7 @@
       "title": "Machine Power States",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 8,
@@ -841,9 +841,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (state) (omni_exporter_machine_power_state)",
+          "expr": "sum by (state) (omni_exporter_machine_power_state{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{state}}"
         }
@@ -880,7 +880,7 @@
       "title": "Machines by Talos Version",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 16,
@@ -892,9 +892,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "count by (talos_version) (omni_exporter_machine_info)",
+          "expr": "count by (talos_version) (omni_exporter_machine_info{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{talos_version}}"
         }
@@ -931,7 +931,7 @@
       "title": "Machine Inventory",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -943,9 +943,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_info",
+          "expr": "max without (instance, pod) (omni_exporter_machine_info{job=~\"$job\"})",
           "refId": "A",
           "instant": true,
           "format": "table"
@@ -994,7 +994,7 @@
       "title": "Cluster Machine Stages",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1006,9 +1006,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (stage) (omni_exporter_cluster_machine_stage)",
+          "expr": "sum by (stage) (omni_exporter_cluster_machine_stage{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{stage}}"
         }
@@ -1045,7 +1045,7 @@
       "title": "Cluster Machine Ready",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 8,
@@ -1057,9 +1057,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_cluster_machine_ready",
+          "expr": "max without (instance, pod) (omni_exporter_cluster_machine_ready{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{machine_id}}"
         }
@@ -1114,7 +1114,7 @@
       "title": "Machine Set Phases",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 16,
@@ -1126,9 +1126,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (phase) (omni_exporter_machine_set_phase)",
+          "expr": "sum by (phase) (omni_exporter_machine_set_phase{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{phase}}"
         }
@@ -1165,7 +1165,7 @@
       "title": "Machine Set Machines",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1177,36 +1177,36 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_set_machines",
+          "expr": "max without (instance, pod) (omni_exporter_machine_set_machines{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{machine_set_id}} total"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_set_machines_healthy",
+          "expr": "max without (instance, pod) (omni_exporter_machine_set_machines_healthy{job=~\"$job\"})",
           "refId": "B",
           "legendFormat": "{{machine_set_id}} healthy"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_set_machines_connected",
+          "expr": "max without (instance, pod) (omni_exporter_machine_set_machines_connected{job=~\"$job\"})",
           "refId": "C",
           "legendFormat": "{{machine_set_id}} connected"
         },
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_set_machines_requested",
+          "expr": "max without (instance, pod) (omni_exporter_machine_set_machines_requested{job=~\"$job\"})",
           "refId": "D",
           "legendFormat": "{{machine_set_id}} requested"
         }
@@ -1243,7 +1243,7 @@
       "title": "Machine Set Ready",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -1255,9 +1255,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_machine_set_ready",
+          "expr": "max without (instance, pod) (omni_exporter_machine_set_ready{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{machine_set_id}}"
         }
@@ -1325,7 +1325,7 @@
       "title": "Backups Enabled",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1337,9 +1337,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum(omni_exporter_cluster_etcd_backup_enabled) or on() clamp_max(omni_exporter_up == 1, 0)",
+          "expr": "sum(omni_exporter_cluster_etcd_backup_enabled{job=~\"$job\"}) or on() clamp_max(omni_exporter_up{job=~\"$job\"} == 1, 0)",
           "refId": "A"
         }
       ],
@@ -1377,7 +1377,7 @@
       "title": "Backup Store Ready",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1389,9 +1389,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_etcd_backup_store_ready",
+          "expr": "max without (instance, pod) (omni_exporter_etcd_backup_store_ready{job=~\"$job\"})",
           "refId": "A"
         }
       ],
@@ -1446,7 +1446,7 @@
       "title": "Backup Statuses",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 4,
@@ -1458,9 +1458,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (status) (omni_exporter_cluster_etcd_backup_status)",
+          "expr": "sum by (status) (omni_exporter_cluster_etcd_backup_status{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{status}}"
         }
@@ -1497,7 +1497,7 @@
       "title": "Time Since Last Backup",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 14,
@@ -1509,9 +1509,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "time() - omni_exporter_cluster_etcd_backup_last_success_timestamp_seconds",
+          "expr": "time() - max without (instance, pod) (omni_exporter_cluster_etcd_backup_last_success_timestamp_seconds{job=~\"$job\"})",
           "legendFormat": "{{cluster_id}}",
           "instant": true,
           "refId": "A"
@@ -1574,7 +1574,7 @@
       "title": "Collector Success",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1586,9 +1586,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_collector_success",
+          "expr": "max without (instance, pod) (omni_exporter_collector_success{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{collector}}"
         }
@@ -1643,7 +1643,7 @@
       "title": "Watch Events",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 12,
@@ -1655,9 +1655,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "sum by (collector, event) (rate(omni_exporter_collector_events_total[$__rate_interval]))",
+          "expr": "sum by (collector, event) (rate(omni_exporter_collector_events_total{job=~\"$job\"}[$__rate_interval]))",
           "legendFormat": "{{collector}} {{event}}",
           "refId": "A"
         }
@@ -1694,7 +1694,7 @@
       "title": "Version",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 0,
@@ -1706,9 +1706,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_build_info",
+          "expr": "max without (instance, pod) (omni_exporter_build_info{job=~\"$job\"})",
           "refId": "A",
           "legendFormat": "{{version}}"
         }
@@ -1747,7 +1747,7 @@
       "title": "Exporter Memory",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 4,
@@ -1759,9 +1759,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "process_resident_memory_bytes{job='omni_exporter'} OR process_resident_memory_bytes",
+          "expr": "process_resident_memory_bytes{job=~\"$job\"}",
           "refId": "A",
           "legendFormat": "resident memory"
         }
@@ -1799,7 +1799,7 @@
       "title": "Exporter Goroutines",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 9,
@@ -1811,9 +1811,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "go_goroutines{job='omni_exporter'} OR go_goroutines",
+          "expr": "go_goroutines{job=~\"$job\"}",
           "refId": "A",
           "legendFormat": "goroutines"
         }
@@ -1850,7 +1850,7 @@
       "title": "Cached Resources",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 14,
@@ -1862,9 +1862,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_collector_cached_resources",
+          "expr": "max without (instance, pod) (omni_exporter_collector_cached_resources{job=~\"$job\"})",
           "legendFormat": "{{collector}}",
           "refId": "A"
         }
@@ -1897,7 +1897,7 @@
       "title": "Watch Restarts",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 19,
@@ -1909,9 +1909,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_collector_watch_attempts_total - 1",
+          "expr": "max without (instance, pod) (omni_exporter_collector_watch_attempts_total{job=~\"$job\"}) - 1",
           "legendFormat": "{{collector}}",
           "refId": "A"
         }
@@ -1944,7 +1944,7 @@
       "title": "Omni Reachable",
       "datasource": {
         "type": "prometheus",
-        "uid": "prometheus"
+        "uid": "${datasource}"
       },
       "gridPos": {
         "x": 6,
@@ -1956,9 +1956,9 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "prometheus"
+            "uid": "${datasource}"
           },
-          "expr": "omni_exporter_reachable",
+          "expr": "max without (instance, pod) (omni_exporter_reachable{job=~\"$job\"})",
           "refId": "A"
         }
       ],
@@ -2009,7 +2009,38 @@
     }
   ],
   "templating": {
-    "list": []
+    "list": [
+      {
+        "name": "datasource",
+        "label": "Data source",
+        "type": "datasource",
+        "query": "prometheus",
+        "refresh": 1,
+        "current": {},
+        "hide": 0
+      },
+      {
+        "name": "job",
+        "label": "Job",
+        "type": "query",
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${datasource}"
+        },
+        "query": {
+          "query": "label_values(omni_exporter_up, job)",
+          "refId": "A"
+        },
+        "refresh": 2,
+        "sort": 1,
+        "includeAll": true,
+        "multi": true,
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        }
+      }
+    ]
   },
   "annotations": {
     "list": []

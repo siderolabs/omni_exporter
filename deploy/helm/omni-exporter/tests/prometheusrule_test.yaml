@@ -1,0 +1,22 @@
+suite: prometheusrule
+templates:
+  - templates/prometheusrule.yaml
+set:
+  omni.endpoint: https://example.omni.siderolabs.io
+  omni.serviceAccountKey.value: dummy
+tests:
+  - it: is not rendered by default
+    asserts:
+      - hasDocuments:
+          count: 0
+  - it: scopes the alerts to the job of the release
+    release:
+      name: prod
+    set:
+      prometheusRule.enabled: true
+    asserts:
+      - isKind:
+          of: PrometheusRule
+      - equal:
+          path: spec.groups[0].rules[0].expr
+          value: omni_exporter_reachable{job="prod-omni-exporter",namespace="NAMESPACE"} == 0

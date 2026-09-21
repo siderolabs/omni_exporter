@@ -20,8 +20,6 @@ The deliberate non-goals:
 
 - No aggregation.
   Per-object series go out raw and PromQL does the summing and counting, so the exporter never has to guess which rollups someone wants.
-- No shipped alerting rules or user-facing dashboards.
-  The dashboard under `hack/compose` exists to develop against, not to ship.
 - No duplication of the metrics Omni exposes natively under the `omni_` prefix.
   Those are instance-level aggregates on an internal endpoint, while this is the per-object complement, and the distinct `omni_exporter_` prefix keeps the two from ever colliding, including when both are scraped into one Prometheus.
 - No reimplementation of anything the Omni client SDK already owns, in particular the transport, the request signing and the transparent resumption of broken watches.
@@ -101,6 +99,10 @@ What follows from that:
     It knows nothing about Omni, which is what lets it be tested against a stand-in resource type of the COSI runtime itself.
   - `enum.go` holds the enum expansion into 0/1 series.
   - One file per resource area holds the descriptors and the rendering: clusters, machines, cluster machines, machine sets, upgrades, etcd backups.
+- `deploy/helm/omni-exporter`: the Helm chart, modeled on Omni's own chart, and the one home of the Grafana dashboard, which the compose stack mounts as well.
+  The dashboard selects exporters by the `job` label that the scrape adds, so several Omni instances only need one release each.
+  Its queries aggregate away `instance` and `pod` with `max without (instance, pod)`, because both change on every restart of the exporter pod.
+  It is linted with grafana/dashboard-linter against `dashboards/.lint`, which has a reason for every excluded rule.
 - Adding a resource type means one constructor returning a watch collector with its descriptors and render function, plus registering it in the collector list.
   The generic machinery is meant to make that the whole change.
 
@@ -141,6 +143,8 @@ When `go.mod` carries a `replace` for `omni/client`, it is a temporary pin and t
 Releases are cut with the repo's own tooling (`hack/release.sh` and `hack/release.toml`) in two phases.
 First a release PR sets `hack/release.toml` `previous` to the latest tag, regenerates version files, runs `hack/release.sh changelog vX` to update the changelog, and creates the `release(vX): prepare release` commit via `hack/release.sh commit vX` (the script adds a DCO sign-off, and commits are GPG-signed when git is configured to sign).
 Then, after merge, a signed tag is pushed, which triggers CI to build and push the release images and draft a GitHub release.
+The chart is released together with the exporter, and `make generate` sets its version from the release tag.
+The major version of the chart comes from `chartVersionMajor` in `.kres.yaml`, not from the tag, so it has to be bumped together with the major version of the exporter.
 A deps bump and a release are separate PRs.
 
 Metric names are a public contract once released.

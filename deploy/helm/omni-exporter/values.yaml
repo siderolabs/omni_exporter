@@ -1,0 +1,155 @@
+# -- Number of exporter replicas. Every replica watches the whole Omni instance and serves the same series, so more replicas duplicate the series instead of sharing the load. Sums and counts over them, including in the bundled dashboard, then count every object once per replica.
+replicaCount: 1
+
+image:
+  # -- Image repository.
+  repository: ghcr.io/siderolabs/omni_exporter
+  # -- Image tag. Defaults to the chart appVersion.
+  tag: ""
+  # -- Image pull policy.
+  pullPolicy: IfNotPresent
+
+# -- Image pull secrets.
+imagePullSecrets: []
+# -- Override the chart name.
+nameOverride: ""
+# -- Override the full name of the release resources.
+fullnameOverride: ""
+
+omni:
+  # -- Omni API endpoint (e.g., `https://<account>.omni.siderolabs.io`). Required.
+  endpoint: ""
+  # Service account key of a `Reader` role service account. Set either `existingSecret` or `value`.
+  serviceAccountKey:
+    # -- Name of an existing Secret holding the key. The exporter reads the key only at startup, so restart it after rotating the key.
+    existingSecret: ""
+    # -- Key of the service account key within the existing Secret.
+    existingSecretKey: OMNI_SERVICE_ACCOUNT_KEY
+    # -- The key itself, stored in a Secret created by the chart. Used only when `existingSecret` is empty.
+    value: ""
+
+# -- Extra command line arguments for the exporter (e.g., `--log.level=debug` or `--omni.insecure-skip-tls-verify`). See `omni_exporter --help` for all flags.
+extraArgs: []
+
+# -- Extra environment variables for the exporter container.
+extraEnv: []
+
+service:
+  # -- Service type.
+  type: ClusterIP
+  # -- Service port.
+  port: 10048
+  # -- Service annotations.
+  annotations: {}
+
+serviceAccount:
+  # -- Create a ServiceAccount.
+  create: true
+  # -- ServiceAccount name. Defaults to the full name of the release.
+  name: ""
+  # -- ServiceAccount annotations.
+  annotations: {}
+  # -- Mount the ServiceAccount token. The exporter does not talk to the Kubernetes API.
+  automountServiceAccountToken: false
+
+serviceMonitor:
+  # -- Create a Prometheus Operator ServiceMonitor.
+  enabled: false
+  # -- ServiceMonitor namespace. Defaults to the release namespace.
+  namespace: ""
+  # -- Scrape interval.
+  interval: 30s
+  # -- Scrape timeout.
+  scrapeTimeout: 10s
+  # -- Keep the labels of the scraped series when they collide with the target labels.
+  honorLabels: false
+  # -- ServiceMonitor labels (e.g., to match the `serviceMonitorSelector` of Prometheus).
+  labels: {}
+  # -- ServiceMonitor annotations.
+  annotations: {}
+  # -- Prometheus [RelabelConfigs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#relabel_config) to apply before scraping.
+  relabelings: []
+  # -- Prometheus [MetricRelabelConfigs](https://prometheus.io/docs/prometheus/latest/configuration/configuration/#metric_relabel_configs) to apply before ingestion.
+  metricRelabelings: []
+
+prometheusRule:
+  # -- Create a Prometheus Operator PrometheusRule with alerts on Omni reachability and on the exporter itself. The alerts select the exporter by its `job` and `namespace` labels. Therefore, it must be scraped through its Service with the default job name, like the ServiceMonitor does.
+  enabled: false
+  # -- PrometheusRule namespace. Defaults to the release namespace.
+  namespace: ""
+  # -- PrometheusRule labels (e.g., to match the `ruleSelector` of Prometheus). It must be the Prometheus that scrapes the exporter.
+  labels: {}
+  # -- PrometheusRule annotations.
+  annotations: {}
+
+# -- Container resources.
+resources:
+  requests:
+    cpu: 25m
+    memory: 64Mi
+  limits:
+    memory: 256Mi
+
+# -- Pod security context.
+podSecurityContext:
+  runAsNonRoot: true
+  runAsUser: 65532
+  runAsGroup: 65532
+  fsGroup: 65532
+  seccompProfile:
+    type: RuntimeDefault
+
+# -- Container security context.
+securityContext:
+  allowPrivilegeEscalation: false
+  readOnlyRootFilesystem: true
+  capabilities:
+    drop:
+      - ALL
+
+# -- Liveness probe. It checks the landing page, not `/metrics`, so that it does not depend on Omni and does not collect the metrics.
+livenessProbe:
+  httpGet:
+    path: /
+    port: metrics
+  periodSeconds: 30
+
+# -- Readiness probe. It checks the landing page, like the liveness probe.
+readinessProbe:
+  httpGet:
+    path: /
+    port: metrics
+  periodSeconds: 15
+
+dashboards:
+  # -- Create a ConfigMap with the Grafana dashboard, labeled for the Grafana sidecar to pick up.
+  enabled: false
+  # -- Namespace of the dashboard ConfigMap, for a sidecar that only watches its own namespace. Defaults to the release namespace.
+  namespace: ""
+  # -- Label that the Grafana sidecar watches for.
+  label: grafana_dashboard
+  # -- Value of the sidecar label.
+  labelValue: "1"
+  # -- Annotations of the dashboard ConfigMap (e.g., the folder annotation of the sidecar).
+  annotations: {}
+
+# -- Pod annotations.
+podAnnotations: {}
+# -- Pod labels.
+podLabels: {}
+
+# -- Node selector.
+nodeSelector: {}
+# -- Tolerations.
+tolerations: []
+# -- Affinity.
+affinity: {}
+# -- Topology spread constraints.
+topologySpreadConstraints: []
+# -- Priority class name.
+priorityClassName: ""
+
+# -- Extra volumes for the pod.
+extraVolumes: []
+# -- Extra volume mounts for the exporter container.
+extraVolumeMounts: []

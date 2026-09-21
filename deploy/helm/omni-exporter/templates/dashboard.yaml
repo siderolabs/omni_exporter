@@ -1,0 +1,17 @@
+{{- if .Values.dashboards.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ include "omni-exporter.fullname" . }}-dashboard
+  namespace: {{ .Values.dashboards.namespace | default .Release.Namespace }}
+  labels:
+    {{- include "omni-exporter.labels" . | nindent 4 }}
+    {{ .Values.dashboards.label }}: {{ .Values.dashboards.labelValue | quote }}
+  {{- with .Values.dashboards.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+data:
+  omni-exporter.json: |-
+    {{- .Files.Get "dashboards/omni-exporter.json" | nindent 4 }}
+{{- end }}

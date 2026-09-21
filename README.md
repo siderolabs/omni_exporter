@@ -35,6 +35,9 @@ Metrics are served on `http://localhost:10048/metrics`.
 The key can alternatively be read from a file via `--omni.service-account-key-file`, e.g. for Kubernetes secret mounts.
 See `--help` for all flags, including `--web.config.file` for TLS and basic authentication on the metrics endpoint.
 
+To run it on Kubernetes, use the [Helm chart](deploy/helm/omni-exporter/README.md).
+It also ships the Grafana dashboard and optional alerts.
+
 Example scrape configuration:
 
 ```yaml
