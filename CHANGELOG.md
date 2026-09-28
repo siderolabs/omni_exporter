@@ -1,3 +1,55 @@
+## [omni_exporter 0.2.0](https://github.com/siderolabs/omni_exporter/releases/tag/v0.2.0) (2026-09-28)
+
+Welcome to the v0.2.0 release of omni_exporter!
+
+
+
+Please try out the release binaries and report any issues at
+https://github.com/siderolabs/omni_exporter/issues.
+
+### Helm Chart
+
+The exporter now has a Helm chart, released together with it as `oci://ghcr.io/siderolabs/charts/omni-exporter`:
+
+```
+helm install omni-exporter oci://ghcr.io/siderolabs/charts/omni-exporter \
+  --set omni.endpoint=https://<account>.omni.siderolabs.io \
+  --set omni.serviceAccountKey.existingSecret=omni-exporter-key
+```
+
+The chart can optionally create a `ServiceMonitor`, a ConfigMap with the Grafana dashboard for the Grafana sidecar, and a `PrometheusRule` with alerts on Omni reachability and on the exporter itself.
+The dashboard has a `datasource` and a `job` variable, so several exporters (one per Omni instance) can share the same Prometheus.
+
+
+### Contributors
+
+* Olivier Gintrand
+* Utku Ozdemir
+
+### Changes
+<details><summary>2 commits</summary>
+<p>
+
+* [`d3f123c`](https://github.com/siderolabs/omni_exporter/commit/d3f123c3c9b2e92865e4af177eeb318651794e55) chore: bump deps, rekres
+* [`c25c892`](https://github.com/siderolabs/omni_exporter/commit/c25c89254846b7815e98a1f3901949a88ea4636b) feat: add a helm chart with the grafana dashboard and alerts
+</p>
+</details>
+
+### Dependency Changes
+
+* **github.com/cosi-project/runtime**         v1.16.2 -> v1.16.3
+* **github.com/prometheus/client_golang**     v1.23.2 -> v1.24.1
+* **github.com/prometheus/client_model**      v0.6.2 -> v0.6.3
+* **github.com/prometheus/common**            v0.70.0 -> v0.72.0
+* **github.com/prometheus/exporter-toolkit**  v0.17.1 -> v0.20.0
+* **github.com/siderolabs/omni/client**       d34ecf49816b -> v1.12.2
+* **github.com/stretchr/testify**             v1.11.1 -> v1.12.1
+* **golang.org/x/sync**                       v0.22.0 -> v0.23.0
+* **google.golang.org/grpc**                  v1.82.1 -> v1.84.0
+* **google.golang.org/protobuf**              f2248ac996af -> v1.36.12
+
+Previous release can be found at [v0.1.0](https://github.com/siderolabs/omni_exporter/releases/tag/v0.1.0)
+
 ## [omni_exporter 0.1.0](https://github.com/siderolabs/omni_exporter/releases/tag/v0.1.0) (2026-08-04)
 
 Welcome to the v0.1.0 release of omni_exporter!

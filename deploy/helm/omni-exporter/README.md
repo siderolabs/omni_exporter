@@ -1,6 +1,6 @@
 # omni-exporter
 
-![Version: 0.1.0](https://img.shields.io/badge/Version-0.1.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.1.0](https://img.shields.io/badge/AppVersion-v0.1.0-informational?style=flat)
+![Version: 0.2.0](https://img.shields.io/badge/Version-0.2.0-informational?style=flat) ![Type: application](https://img.shields.io/badge/Type-application-informational?style=flat) ![AppVersion: v0.2.0](https://img.shields.io/badge/AppVersion-v0.2.0-informational?style=flat)
 
 A Helm chart to deploy the Prometheus exporter for Sidero Omni
 

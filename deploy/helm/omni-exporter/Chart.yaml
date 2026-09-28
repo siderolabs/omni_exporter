@@ -5,8 +5,8 @@ type: application
 
 # version and appVersion are set by `make generate` (kres) at release time,
 # so that the chart version follows the exporter version.
-version: 0.1.0
-appVersion: "v0.1.0"
+version: 0.2.0
+appVersion: "v0.2.0"
 
 home: https://github.com/siderolabs/omni_exporter
 sources:
