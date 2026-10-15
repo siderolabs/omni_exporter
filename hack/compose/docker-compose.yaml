@@ -5,7 +5,7 @@ name: omni-exporter-dev
 
 services:
   prometheus:
-    image: prom/prometheus:v3.13.1
+    image: prom/prometheus:v3.15.0
     ports:
       - "9090:9090"
     volumes:
@@ -15,7 +15,7 @@ services:
       - "host.docker.internal:host-gateway" # for Linux, no-op on macOS
 
   grafana:
-    image: grafana/grafana:13.1.0
+    image: grafana/grafana:13.2.4
     ports:
       - "3000:3000"
     environment:
